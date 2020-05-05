@@ -4,7 +4,7 @@
  * Plugin Name: update-test
  * Plugin URI:  https://www.groundhogg.io/?utm_source=wp-plugins&utm_campaign=plugin-uri&utm_medium=wp-dash
  * Description: CRM and marketing automation for WordPress
- * Version: 1.1
+ * Version: 1.3
  * Author: Groundhogg Inc.
  * Author URI: https://www.groundhogg.io/?utm_source=wp-plugins&utm_campaign=author-uri&utm_medium=wp-dash
  * Text Domain: groundhogg
@@ -68,7 +68,7 @@ class Update {
 		}
 
 		// Query the GitHub API
-		$url = "https://api.github.com/repos/{$this->username}/{$this->repo}/releases";
+		$url = "https://api.github.com/repos/{$this->username}/{$this->repo}/tags";
 
 		// We need the access token for private repos
 		if ( !empty( $this->accessToken ) ) {
@@ -98,8 +98,9 @@ class Update {
 		$this->initPluginData();
 		$this->getRepoReleaseInfo();
 
+
 		// Check the versions if we need to do an update
-		$doUpdate = version_compare( $this->githubAPIResult->tag_name, $transient->checked[$this->slug] );
+		$doUpdate = version_compare( $this->githubAPIResult->name, $transient->checked[$this->slug] );
 
 		// Update the transient to include our updated plugin data
 		if ( $doUpdate == 1 ) {
@@ -112,7 +113,7 @@ class Update {
 
 			$obj = new stdClass();
 			$obj->slug = $this->slug;
-			$obj->new_version = $this->githubAPIResult->tag_name;
+			$obj->new_version = $this->githubAPIResult->name;
 			$obj->url = $this->pluginData["PluginURI"];
 			$obj->package = $package;
 			$transient->response[$this->slug] = $obj;
@@ -136,7 +137,7 @@ class Update {
 		$response->last_updated = $this->githubAPIResult->published_at;
 		$response->slug = $this->slug;
 		$response->plugin_name  = $this->pluginData["Name"];
-		$response->version = $this->githubAPIResult->tag_name;
+		$response->version = $this->githubAPIResult->name;
 		$response->author = $this->pluginData["AuthorName"];
 		$response->homepage = $this->pluginData["PluginURI"];
 
