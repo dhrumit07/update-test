@@ -32,6 +32,7 @@ if ( is_admin() ) {
 
 
 
+
 class Update {
 
 	private $slug; // plugin slug
