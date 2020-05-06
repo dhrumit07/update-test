@@ -4,7 +4,7 @@
  * Plugin Name: update-test
  * Plugin URI:  https://www.groundhogg.io/?utm_source=wp-plugins&utm_campaign=plugin-uri&utm_medium=wp-dash
  * Description: CRM and marketing automation for WordPress
- * Version: 1.3
+ * Version: 1.4
  * Author: Groundhogg Inc.
  * Author URI: https://www.groundhogg.io/?utm_source=wp-plugins&utm_campaign=author-uri&utm_medium=wp-dash
  * Text Domain: groundhogg
@@ -58,6 +58,7 @@ class Update {
 	private function initPluginData() {
 		$this->slug = plugin_basename( $this->pluginFile );
 		$this->pluginData = get_plugin_data( $this->pluginFile );
+		var_dump(plugin_basename( $this->pluginFile ));
 	}
 
 	// Get information regarding our plugin from GitHub
